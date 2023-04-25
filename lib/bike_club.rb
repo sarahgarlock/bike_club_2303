@@ -18,4 +18,10 @@ class BikeClub
   def best_time(ride)
     @bikers.min_by { |biker| biker.personal_record(ride) }
   end
+
+  def bikers_eligible(ride)
+    @bikers.select do |biker|
+      biker.max_distance >= ride.distance && biker.acceptable_terrain.include?(ride.terrain)
+    end
+  end
 end
