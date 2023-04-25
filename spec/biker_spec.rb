@@ -33,7 +33,7 @@ RSpec.describe Biker do
     end
   end
   
-  describe "#log_ride" do
+  describe "#log ride" do
     it "does not log a ride if the terrain is not in the biker's acceptable terrain" do
       @biker.learn_terrain!(:gravel)
       expect(@biker.log_ride(@ride1, 92.5)).to be_nil
@@ -52,7 +52,7 @@ RSpec.describe Biker do
     end
   end
   
-  describe "#personal_record" do
+  describe "#personal record" do
     it "returns the lowest time recorded for a specific ride" do
       @biker.learn_terrain!(:gravel)
       @biker.log_ride(@ride2, 60.9)
