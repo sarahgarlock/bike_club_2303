@@ -26,37 +26,39 @@ RSpec.describe Biker do
       expect(@biker.acceptable_terrain).to eq([])
     end
 
-    it 'can learn terrain' do
+    it "returns the list of acceptable terrains after the biker learns new terrains" do
       @biker.learn_terrain!(:gravel)
       @biker.learn_terrain!(:hills)
-
       expect(@biker.acceptable_terrain).to eq([:gravel, :hills])
     end
   end
-
-  describe '#log rides' do
-    it 'can log rides into a hash' do
-      @biker.log_ride(@ride1, 92.5)
-      @biker.log_ride(@ride1, 91.1)
-      @biker.log_ride(@ride2, 60.9)
-      @biker.log_ride(@ride2, 61.6)
-
-      expect(@biker.rides).to eq({
-              @ride1 => [92.5, 91.1],
-              @ride2 => [60.9, 61.6]
-            })
+  
+  describe "#log_ride" do
+    it "does not log a ride if the terrain is not in the biker's acceptable terrain" do
+      @biker.learn_terrain!(:gravel)
+      expect(@biker.log_ride(@ride1, 92.5)).to be_nil
+    end
+    
+    it "does not log a ride if the distance is greater than the biker's max distance" do
+      expect(@biker.log_ride(@ride2, 60.9)).to be_nil
+    end
+    
+    it "logs a ride if the terrain is in the biker's acceptable terrain and the distance is within the biker's max distance" do
+      @biker.learn_terrain!(:gravel)
+      @biker.learn_terrain!(:hills)
+      
+      expect(@biker.log_ride(@ride1, 92.5)).to_not be_nil
+      expect(@biker.rides).to eq({ @ride1 => [92.5] })
     end
   end
-
-  describe '#personal record' do
-    it 'can select fastest time from rides' do
-      @biker.log_ride(@ride1, 92.5)
-      @biker.log_ride(@ride1, 91.1)
+  
+  describe "#personal_record" do
+    it "returns the lowest time recorded for a specific ride" do
+      @biker.learn_terrain!(:gravel)
       @biker.log_ride(@ride2, 60.9)
       @biker.log_ride(@ride2, 61.6)
 
-      expect(@biker.personal_record(@ride1)).to eq 91.1
-      expect(@biker.personal_record(@ride2)).to eq 60.9
+      expect(@biker.personal_record(@ride2)).to eq(60.9)
     end
   end
 end
