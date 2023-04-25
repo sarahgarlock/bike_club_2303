@@ -20,7 +20,7 @@ RSpec.describe Biker do
     end
   end
 
-  describe '#rides and terrain' do
+  describe '#acceptable terrain' do
     it 'starts with no rides and acceptable terrain' do
       expect(@biker.rides).to eq ({})
       expect(@biker.acceptable_terrain).to eq([])
