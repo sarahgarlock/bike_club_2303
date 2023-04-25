@@ -32,19 +32,19 @@ RSpec.describe BikeClub do
       @bike_club.add_biker(@biker1)
       @bike_club.add_biker(@biker2)
 
-      expect(@bike_club.bikers).to contain_exactly(@biker1, @biker2)
+      expect(@bike_club.bikers).to eq([@biker1, @biker2])
     end
   end
 
   describe '#most rides' do
     it 'can return the Biker with the most rides' do
+      @bike_club.add_biker(@biker1)
+      @bike_club.add_biker(@biker2)
+      
       @biker1.learn_terrain!(:gravel)
       @biker1.learn_terrain!(:hills)
       @biker2.learn_terrain!(:gravel)
       @biker2.learn_terrain!(:hills)
-
-      @bike_club.add_biker(@biker1)
-      @bike_club.add_biker(@biker2)
 
       @biker1.log_ride(@ride1, 92.5)
       @biker2.log_ride(@ride1, 60.9)
@@ -74,7 +74,7 @@ RSpec.describe BikeClub do
     end
   end
 
-  describe '#eligible' do
+  describe '#bikers eligible' do
     it 'can tell us which Biker is eligible for a given ride' do
       @bike_club.add_biker(@biker1)
       @bike_club.add_biker(@biker2)
