@@ -9,10 +9,7 @@ RSpec.describe BikeClub do
     @biker2 = Biker.new("Athena", 15)
     @ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
     @ride2 = Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
-    @biker1.learn_terrain!(:gravel)
-    @biker1.learn_terrain!(:hills)
-    @biker2.learn_terrain!(:gravel)
-    @biker2.learn_terrain!(:hills)
+
   end
 
   describe '#initialize' do
@@ -40,6 +37,11 @@ RSpec.describe BikeClub do
 
   describe '#most rides' do
     it 'can return the Biker with the most rides' do
+      @biker1.learn_terrain!(:gravel)
+      @biker1.learn_terrain!(:hills)
+      @biker2.learn_terrain!(:gravel)
+      @biker2.learn_terrain!(:hills)
+
       @bike_club.add_biker(@biker1)
       @bike_club.add_biker(@biker2)
 
@@ -53,6 +55,11 @@ RSpec.describe BikeClub do
 
   describe '#best time' do
     it 'can return the Biker with the best time' do
+      @biker1.learn_terrain!(:gravel)
+      @biker1.learn_terrain!(:hills)
+      @biker2.learn_terrain!(:gravel)
+      @biker2.learn_terrain!(:hills)
+
       @bike_club.add_biker(@biker1)
       @bike_club.add_biker(@biker2)
 
